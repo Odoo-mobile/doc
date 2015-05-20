@@ -1,2 +1,1 @@
-# doc
-Documentation for framework v1, v2
+Documentation for framework v1
