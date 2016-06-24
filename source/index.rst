@@ -1,5 +1,5 @@
-Odoo Mobile documentation (v2)
-==============================
+Odoo Mobile documentation (v2.2.0)
+==================================
 
 Contents:
 ---------

@@ -9,3 +9,4 @@ Basic Components
    components/addons.rst
    components/controls.rst
    components/chatter-view.rst
+   components/working-with-relation-records.rst
