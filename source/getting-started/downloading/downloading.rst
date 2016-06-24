@@ -67,4 +67,6 @@ Odoo Mobile Repositories : https://github.com/odoo-mobile
 
 Odoo Mobile Framework Issues : https://github.com/Odoo-mobile/framework/issues
 
-Contact us: android@openerp.co.in
+Contact us: android@odoo.co.in
+
+Twitter: https://twitter.com/odoomobile

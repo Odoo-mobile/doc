@@ -17,4 +17,4 @@ Here is some of the application build with Odoo Mobile Framework (Also available
 
 .. image:: images/odoo_apps.png
    :target: https://play.google.com/store/apps/developer?id=Odoo+SA
-   :width: 540px
+   :width: 856px
