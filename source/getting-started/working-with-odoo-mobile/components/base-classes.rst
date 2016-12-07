@@ -595,10 +595,10 @@ Used to add key value selection pair. Used with ``OSelection`` data type.
 Column annotations
 ******************
 
-``@Odoo.api.v7``, ``@Odoo.api.v8`` and ``@Odoo.api.v9alpha`` 
-............................................................
+``@Odoo.api.v7``, ``@Odoo.api.v8``, ``@Odoo.api.v9``, ``@Odoo.api.v10`` and ``@Odoo.api.v11alpha``
+..................................................................................................
 
-.. index:: @Odoo.api.v7, @Odoo.api,v8, @Odoo.api.v9alpha
+.. index:: @Odoo.api.v7, @Odoo.api,v8, @Odoo.api.v9, @Odoo.api.v10, @Odoo.api.v11alpha
 
 api annotations are used when your column name is different in odoo versions. Or may be it is possible that some of column not present in older version and newer version. Framework column annotation provide feature for making your model compitible for different odoo versions.
 
@@ -606,13 +606,13 @@ You need to just add annotation on column with your supported version.
 
 .. code-block:: java
 
-	@Odoo.api.v7
+	@Odoo.api.v9
 	OColumn to_read = new OColumn("To Read", OBoolean.class);
 
-	@Odoo.api.v8
+	@Odoo.api.v10
 	OColumn is_read = new Column("Is read", OBoolean.class);
 
-Here, ``api.v7`` column will created only if connected odoo server is version 7.0, same as for ``api.v8``
+Here, ``api.v9`` column will created only if connected odoo server is version 9.0, same as for ``api.v10``
 
 ``@Odoo.SyncColumnName()``
 ..........................
@@ -716,24 +716,37 @@ For ManyToOne, ManyToMany and OneToMany values will be different.
 		return 0;
 	}
 
-``@Odoo.hasDomainFilter()``
+``@Odoo.Domain()``
 ...........................
 
-.. index:: @Odoo.hasDomainFilter()
+.. index:: @Odoo.Domain()
 
 In some cases, you need to filter your record depended on some value change at runtime. For example, by changing country, states are loaded related to country. 
 
-By using ``hasDomainFilter`` annotation you can deal with it. 
+By using ``Domain`` annotation with your domain string in valid format you can deal with it. 
 
-Add column domain, and annotation. If system found domains with ``hasDomainFilter`` annotation it will be treated runtime. **Note: it works with OForm control only**
+Add column domain as annotation value. Framework will apply domain with annotation and also include column domains (static domains with hard coded values) and applied to related column at runtime. 
+**Note: it works with OForm control only**
+
+**Syntax:**
+
+.. code-block:: java
+	
+	@Odoo.Domain("[['related_column', '=', @related_column],'and', ['','',@??], 'or', .....]")
+	OColumn state_id = new OColumn("State", ResCountryState.class, RelationType.ManyToOne);
+
+Here ``@related_column`` indicate that from ``OForm`` fields the dynamic value is from @related_column,
+It will be replaced with value at runtime.
+
+.. note::
+	Use columns that are available in model with ``@Odoo.Domain()`` 
 
 .. code-block:: java
 
 	OColumn country_id = new OColumn("Country", ResCountry.class, RelationType.ManyToOne);
 
-	@Odoo.hasDomainFilter()
-	OColumn state_id = new OColumn("State", ResStates.class, RelationType.ManyToOne)
-		.addDomain("country_id","=", this);
+	@Odoo.Domain("[['country_id', '=', @country_id]]")
+	OColumn state_id = new OColumn("State", ResStates.class, RelationType.ManyToOne);
 
 
 .. _model-class:
